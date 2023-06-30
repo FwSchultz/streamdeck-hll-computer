@@ -1,5 +1,5 @@
 class Computer {
-    static acceptedModes = ["american", "german", "russian"];
+    static acceptedModes = ["american", "german", "russian", "britain"];
     static computerMaxHistory = 5;
     static maxDigits = 4;
 
@@ -26,12 +26,12 @@ class Computer {
     }
 
     enterDigit(value) {
+        if (this.currentDigits >= Computer.maxDigits) {
+            return false;
+        }
         this.currentDigits += 1;
         this.currentInput = (this.currentInput * 10) + value;
         this._updateInputBufferActions();
-        if (this.currentDigits >= Computer.maxDigits) {
-            return this.enter();
-        }
         return true;
     }
 
@@ -130,6 +130,10 @@ class Computer {
                 m = -0.2133823529;
                 b = 1141.375;
                 break;
+			case "britain":
+                m = -0.1773;
+                b = 550.69;
+                break;
         }
         const result = (m*this.currentInput) + b;
         return Math.round(result);
@@ -147,6 +151,10 @@ class Computer {
             case "russian":
                 min = 800;
                 max = 1120;
+                break;
+			case "britain":
+                min = 267;
+                max = 533;
                 break;
         }
 
